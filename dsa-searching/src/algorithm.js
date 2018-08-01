@@ -77,13 +77,13 @@ const eggDrop = (breakFloor, maxFloor)=>{
 
     if(testFloor >= breakFloor){
       test1++;
+      test2++;
     
 
-      while(bottomFloor <= breakFloor){
+      while(bottomFloor < breakFloor && bottomFloor < testFloor-1){
         bottomFloor++;
         test2++;
       }
-      
       return `egg didn't break until after ${bottomFloor - 1}. we tried ${[test1, test2]} times`;
     }
 
