@@ -17,10 +17,12 @@ function linearSearch(arr, value) {
 // console.log(linearSearch(testArr, 115));
 
 
+
+
 testArr.sort((a,b) => a-b );
 
 function binarySearch(arr, value, start = 0, end = arr.length, cycles=1){
-    
+
   let index = Math.floor((start+end)/2);
   console.log(cycles, index, arr[index])
 
