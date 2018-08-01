@@ -31,10 +31,11 @@ const main = ()=> {
   // console.log(postOrder(myTree));
   // console.log(maxProfit(stocks));
 
-  console.log(deweySearch(library, 
-    { author: 'Cowlishaw, Mike', dewey: '005.133', title: 'The REXX Language' }
-  ));
+  // console.log(deweySearch(library, 
+  //   { author: 'Cowlishaw, Mike', dewey: '005.133', title: 'The REXX Language' }
+  // ));
 
+  console.log(eggDrop(14,100));
 
 //     3
 //    / \
@@ -42,6 +43,57 @@ const main = ()=> {
 //  / \
 // 0   2
 
+};
+
+const getFirstFloor = (maxFloor)=>{
+
+  let n = 1;
+  let x;
+  let tot = 0;
+
+  while(tot < maxFloor){
+    tot = n+1;
+    x = 1;
+
+    while (n-x > 0){
+      tot += n-x;
+      x ++;
+    }
+
+    n ++;
+  }  
+  return n-1;
+};
+
+const eggDrop = (breakFloor, maxFloor)=>{
+
+  let incriment = getFirstFloor(maxFloor);
+  let testFloor = incriment;
+  let bottomFloor = 1;
+  let test1 = 0;
+  let test2 = 0;
+
+  while(testFloor < maxFloor){
+
+    if(testFloor >= breakFloor){
+      test1++;
+    
+
+      while(bottomFloor <= breakFloor){
+        bottomFloor++;
+        test2++;
+      }
+      
+      return `egg didn't break until after ${bottomFloor - 1}. we tried ${[test1, test2]} times`;
+    }
+
+    incriment -= 1;
+    testFloor += incriment;
+    test1 ++;
+    
+  }
+  return `egg didn't break until ${maxFloor}. we tried ${[test1, test2]} times`;
+  
 };
 
 
