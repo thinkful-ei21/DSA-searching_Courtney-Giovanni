@@ -7,15 +7,16 @@ const main = ()=> {
 
   let myTree = new BST();
   let arr = [25, 15, 50, 10, 24, 35, 70, 4, 12, 18, 31, 44, 66, 90, 22];
+  const stocks = [128, 97, 121, 96, 98, 97, 105];
 
   for(let n of arr){
     myTree.insert(n);
   }
-  
-  console.log(inOrder(myTree));
-  console.log(preOrder(myTree));
-  console.log(postOrder(myTree));
-  
+
+  // console.log(inOrder(myTree));
+  // console.log(preOrder(myTree));
+  // console.log(postOrder(myTree));
+  console.log(maxProfit(stocks));
 
 //     3
 //    / \
@@ -42,7 +43,7 @@ let preOrder = (tree)=>{
   if(tree.right){
     values = [...values, ...preOrder(tree.right)];
   }
-  
+
   return values;
 };
 
@@ -64,7 +65,7 @@ let inOrder = (tree)=>{
   if(tree.right){
     values = [...values, ...inOrder(tree.right)];
   }
-  
+
   return values;
 
 };
@@ -78,7 +79,7 @@ let postOrder = (tree)=>{
     return [tree.key];
   }
 
-  
+
 
   if(tree.left){
     values = [...values, ...postOrder(tree.left)];
@@ -87,16 +88,48 @@ let postOrder = (tree)=>{
   if(tree.right){
     values = [...values, ...postOrder(tree.right)];
   }
-  
+
   values = [...values, tree.key];
 
   return values;
 };
 
 
+// const stocks = [128, 97, 121, 96, 98, 97, 105];
 
 
+function maxProfit(stocksArr) {
 
+  if (stocksArr.length === 2) {
+    return stocksArr;
+  }
+
+
+  if (stocksArr[0] >= stocksArr[1]) {
+    return maxProfit(stocksArr.slice(1))
+  }
+  else if (stocksArr[2] >= stocksArr[1]) {
+    return maxProfit([stocksArr[0], ...stocksArr.slice(2)]);
+  }
+  else if (stocksArr[2] >= stocksArr[0]) {
+    return maxProfit([...stocksArr.slice(0,2), ...stocksArr.slice(3)]);
+  }
+  else {
+    if (stocksArr.length === 3) {
+      return stocksArr.slice(0,2);
+    }
+
+    let a = maxProfit([...stocksArr.slice(0,2), ...stocksArr.slice(3)]),
+        b = maxProfit(stocksArr.slice(2));
+
+    if (a[1] - a[0] > b[1] - b[0]) {
+      return a;
+    }
+    else {
+      return b;
+    }
+  }
+}
 
 
 main();
