@@ -13,10 +13,28 @@ const main = ()=> {
     myTree.insert(n);
   }
 
+  const library = [
+    { author: 'Cowlishaw, Mike', dewey: '005.133', title: 'The REXX Language' },
+    { author: 'Sams', dewey: '005.133', title: 'Teach Yourself C++ In 21 Days' },
+    { author: 'Stroustrup., Bjarne', dewey: '005.133', title: 'The C++ Programming Language' },
+    { author: 'Crockford, Douglas', dewey: '005.2762', title: 'JavaScript: The Good Parts' },
+    { author: 'Flanagan, David', dewey: '005.2762', title: 'JavaScript: The Definitive Guide' },
+    { author: 'Schmidt, Meinhard', dewey: '005.44684', title: 'Windows Vista for Dummies' },
+    { author: 'Zondervan', dewey: '220.52081', title: 'NIV Study Bible' },
+    { author:'Humphries, Russell, Dr.', dewey: '231.7652', title: 'Starlight and Time' },
+    { author: 'Jane, Frederick Thomas', dewey: '623.82509051', title: 'Jane\'s Fighting Ships' },
+    { author: 'Norris, Chuck', dewey: '796.8092', title: 'The Official Chuck Norris Fact Book' }
+  ];
+
   // console.log(inOrder(myTree));
   // console.log(preOrder(myTree));
   // console.log(postOrder(myTree));
-  console.log(maxProfit(stocks));
+  // console.log(maxProfit(stocks));
+
+  console.log(deweySearch(library, 
+    { author: 'Cowlishaw, Mike', dewey: '005.133', title: 'The REXX Language' }
+  ));
+
 
 //     3
 //    / \
@@ -25,6 +43,58 @@ const main = ()=> {
 // 0   2
 
 };
+
+
+const binaryDewey = (arr, value, start = 0, end = arr.length) => {
+  //this returns an index with a matching dewey decimal
+
+  let index = Math.floor((start+end)/2);
+  // console.log(cycles, index, arr[index])
+
+  if(arr[index].dewey === value.dewey){
+    return index;
+  }
+  else if( start === end){
+    return 'book not in list';
+  }
+  else if(arr[index].dewey > value.dewey){
+    return binaryDewey(arr, value, start, index -1);
+  }
+  else if(arr[index].dewey < value.dewey){
+    return binaryDewey(arr, value, index +1, end);
+  }
+};
+
+const deweySearch =(arr, book) =>{
+
+  let deweyIndex = binaryDewey(arr, book);
+
+  if(deweyIndex === 'book not in list'){
+    return 'dewey decimal not found in list';
+  }
+
+  let index = deweyIndex;
+
+  while(arr[index].dewey === book.dewey){
+    if(arr[index].title === book.title){
+      return `book found at index ${index}`;
+    }
+    index ++;
+  }
+
+  index = deweyIndex;
+
+  while(arr[index].dewey === book.dewey){
+    if(arr[index].title === book.title){
+      return `book found at index ${index}`;
+    }
+    index --;
+  }
+
+  return 'book not found in list';
+
+};
+
 
 let preOrder = (tree)=>{
 
